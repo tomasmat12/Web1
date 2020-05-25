@@ -20,12 +20,6 @@ function cargarPagina() {
         { colum1: "22", colum2: "Opuesto", colum3: "GermanJohansen", colum4: "2,00 m", colum5: "24 años" }
     ];
 
-    let tablaResultadoPreCargada = [
-        { colum1: "Argentina", colum2: 16, colum3: 25, colum4: 25, colum5: 23, colum6: 16 },
-        { colum1: "Polonia", colum2: 25, colum3: 23, colum4: 23, colum5: 25, colum6: 14 },
-        { colum1: "-------", colum2: "-------", colum3: "Siguiente", colum4: "Partido", colum5: "-------", colum6: "-------" }
-    ];
-
 
 
     function CargaTablas() {
@@ -48,19 +42,20 @@ function cargarPagina() {
 
         }
 
-        for (let elem of tablaResultadoPreCargada) {
-            document.querySelector(".tablaResultado").innerHTML += "<tr>" +
-                "<td>" + elem.colum1 + "</td>" + "<td>" + elem.colum2 + "</td>" + "<td>" + elem.colum3 + "</td>" +
-                "<td>" + elem.colum4 + "</td>" + "<td>" + elem.colum5 + "</td>" + "<td>" + elem.colum6 + "</td>" + "</tr>"
-        }
+        /*        for (let elem of tablaResultadoPreCargada) {
+                    document.querySelector(".tablaResultado").innerHTML += "<tr>" +
+                        "<td>" + elem.colum1 + "</td>" + "<td>" + elem.colum2 + "</td>" + "<td>" + elem.colum3 + "</td>" +
+                        "<td>" + elem.colum4 + "</td>" + "<td>" + elem.colum5 + "</td>" + "<td>" + elem.colum6 + "</td>" + "</tr>"
+              }
+            */
     }
 
     CargaTablas();
-    document.querySelector(".botonAgregarRow").addEventListener("submit", agregarFila);
-    document.querySelector(".botonVaciarTabla").addEventListener("click", vaciarTabla);
+    // document.querySelector(".botonAgregarRow").addEventListener("submit", agregarFila);
+    //document.querySelector(".botonVaciarTabla").addEventListener("click", vaciarTabla);
     /*document.querySelector(".botonFiltro").addEventListener("click",FiltrarGanador);*/
-    document.querySelector(".botonCargarTabla").addEventListener("click", CargaTablas);
-    document.querySelector(".botonEliminarUltimoRegistro").addEventListener("click", eliminarRegistro);
+    //document.querySelector(".botonCargarTabla").addEventListener("click", CargaTablas);
+    //document.querySelector(".botonEliminarUltimoRegistro").addEventListener("click", eliminarRegistro);
 
     document.querySelector("#filtro").addEventListener("change", filtrar);
 
