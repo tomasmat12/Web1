@@ -191,3 +191,16 @@ select {
     display: flex;
     flex-direction: column;
 }
+
+@media only screen and (min-width:800px) {
+    .conteiner {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .conteiner-left {
+        width: 70%;
+    }
+    .conteiner-right {
+        width: 25%;
+    }
+}
