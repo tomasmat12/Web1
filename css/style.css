@@ -2,24 +2,19 @@ html {
     font-family: 'Times New Roman', Times, serif;
 }
 
-
 .header {
     display: block;
     text-align: center;
-    position: sticky;   /* Siempre en pantalla   */
+    position: sticky;
+    /* Siempre en pantalla   */
     top: 0px;
     background-color: white;
     border-radius: 10px;
 }
 
-body {
-    margin: 0 3%;   /* si son 2 arriba/abajo  der/izq    si son 4 agujas del reloj  */
-}
-
 .box {
     box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
-    margin: 15px 10px;
 }
 
 p {
@@ -37,18 +32,26 @@ h2 {
 }
 
 table * {
-    padding: 10px;
+    padding: 5px;
 }
 
-table {
+
+/*table {
     background-color: rgb(233, 231, 204);
     border: solid rgb(134, 23, 23);
     border-radius: 10px;
-    width: 100%;    /* ancho del padre*/ 
-} 
+    width: 100%;
+
+
+
+}
+*/
+
+
 /*    . es class
       # es id
 */
+
 .menu {
     display: flex;
     justify-content: space-around;
@@ -60,13 +63,14 @@ table {
     color: red;
 }
 
+
 /*    
     por especeficidad gana .actual sobre a 
 */
 
 .menu a {
     padding: 10px;
-    font-size: 1.25em;
+    font-size: 1rem;
     color: white;
     text-decoration: none;
 }
@@ -81,11 +85,13 @@ table {
 }
 
 img {
-    width: 100%       /* ancho del padre*/
+    width: 100%
+    /* ancho del padre*/
 }
 
 form {
-    width: 100%;      /* ancho del padre*/
+    width: 100%;
+    /* ancho del padre*/
     display: flex;
     flex-direction: column;
 }
@@ -105,24 +111,26 @@ form * {
     margin: 5px;
 }
 
-.conteiner {
+
+/*.conteiner {
     display: flex;
     padding: 5px;
     justify-content: space-around;
     flex-direction: row-reverse;
+}*/
+
+.conteiner {
+    display: flex;
+    flex-direction: column;
 }
 
 .conteiner-left {
-    width: 70%;
     text-align: justify;
-    font-size: 1.5em;
+    font-size: 1.2rem;
 }
 
 .conteiner-right {
-    display: block;
-    width: 25%;
-    font-size: 1.2em;
-    margin: inherit;
+    font-size: 1rem;
 }
 
 footer {
@@ -163,13 +171,13 @@ select {
     border: 1px solid black;
     border-radius: 5px;
     background: white;
-    font-size: 1em;
+    font-size: 1rem;
 }
 
 .buttonAceptar {
     border-radius: 10px;
     border: 1px solid blue;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     background-color: green;
     color: white;
 }
@@ -182,4 +190,17 @@ select {
 .conteiner-flex {
     display: flex;
     flex-direction: column;
+}
+
+@media only screen and (min-width:800px) {
+    .conteiner {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .conteiner-left {
+        width: 70%;
+    }
+    .conteiner-right {
+        width: 25%;
+    }
 }
