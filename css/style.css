@@ -203,7 +203,8 @@ select {
     .conteiner {
         grid-template-areas: 'conteiner-left conteiner-right';
         grid-template-columns: 7fr 3fr;
-        grid-gap: 1rem;
+        /*grid-gap esta deprecado por eso usamos gap*/
+        gap: 1rem;
     }
     .icon-menu {
         display: none;
