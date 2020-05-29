@@ -1,6 +1,4 @@
-document.addEventListener("DOMContentLoaded", cargarPagina);
-
-function cargarPagina() {
+document.addEventListener("DOMContentLoaded", function() {
 
     "use strict";
     let tablaInfoEquipoPreCargada = [
@@ -17,7 +15,7 @@ function cargarPagina() {
         { colum1: "18", colum2: "Central", colum3: "Martin Ramos", colum4: "1,97 m", colum5: "28 años" },
         { colum1: "19", colum2: "Punta Receptor", colum3: "Luciano Vicentin", colum4: "1,97 m", colum5: "20 años" },
         { colum1: "21", colum2: "Central", colum3: "Joaquin Gallego", colum4: "2,04 m", colum5: "23 años" },
-        { colum1: "22", colum2: "Opuesto", colum3: "GermanJohansen", colum4: "2,00 m", colum5: "24 años" }
+        { colum1: "22", colum2: "Opuesto", colum3: "German Johansen", colum4: "2,00 m", colum5: "24 años" }
     ];
 
 
@@ -61,12 +59,11 @@ function cargarPagina() {
 
     function filtrar() {
         let valor = this.value;
-
         for (let elem of document.querySelector(".tablaInfoEquipo").childNodes) {
             elem.className = "";
             if (valor != "all") {
                 let tdposicion = elem.childNodes[1];
-                if (tdposicion && tdposicion.innerHTML != valor) {
+                if (tdposicion != undefined && tdposicion.innerHTML != valor) {
                     elem.className = "oculto";
                 }
             }
@@ -128,15 +125,18 @@ function cargarPagina() {
             "<td>" + elem.colum4 + "</td>" + "<td>" + elem.colum5 + "</td>" + "<td>" + elem.colum6 + "</td>" + "</tr>"
     }
 
-}
 
 
-/*<input type="text" placeholder="1er Set" id="input1erSet"> </input>
-           <input type="text" placeholder="2do Set" id="input2doSet"> </input>
-           <input type="text" placeholder="3er Set" id="input3erSet"> </input>
-           <input type="text" placeholder="4to Set" id="input4toSet"> </input>
-           <input type="text" placeholder="tie break" id="inputTieBreak"> </input>
-           <button class="botonAgregarRow" value="">Agregar Datos</button>
-           <button class="botonVaciarTabla" value="">Vaciar Tabla</button>
-           <button class="botonFiltro" value="">Filtrar Ganador</button>
-*/
+
+    /*<input type="text" placeholder="1er Set" id="input1erSet"> </input>
+               <input type="text" placeholder="2do Set" id="input2doSet"> </input>
+               <input type="text" placeholder="3er Set" id="input3erSet"> </input>
+               <input type="text" placeholder="4to Set" id="input4toSet"> </input>
+               <input type="text" placeholder="tie break" id="inputTieBreak"> </input>
+               <button class="botonAgregarRow" value="">Agregar Datos</button>
+               <button class="botonVaciarTabla" value="">Vaciar Tabla</button>
+               <button class="botonFiltro" value="">Filtrar Ganador</button>
+    */
+
+
+});

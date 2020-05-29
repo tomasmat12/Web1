@@ -5,7 +5,6 @@ html {
 .header {
     display: flex;
     flex-direction: column;
-    text-align: center;
     position: sticky;
     /* Siempre en pantalla   */
     top: 0px;
@@ -15,6 +14,7 @@ html {
 
 header {
     display: flex;
+    text-align: center;
     flex-direction: row;
 }
 
@@ -123,6 +123,7 @@ form * {
     grid-area: conteiner-left;
     text-align: justify;
     font-size: 1.2rem;
+    /*se agrega para que grid no me ajuste el height*/
     grid-auto-rows: max-content;
 }
 
@@ -163,7 +164,7 @@ footer p {
 }
 
 form input,
-select {
+form select {
     border: 1px solid black;
     border-radius: 5px;
     background: white;
@@ -197,6 +198,15 @@ select {
     color: black;
     font-size: 1.2rem;
     border: 0;
+}
+
+@media only screen and (min-width:500px) {
+    .conteiner {
+        grid-template-areas: 'conteiner-left conteiner-right';
+        grid-template-columns: 7fr 3fr;
+        /*grid-gap esta deprecado por eso usamos gap*/
+        gap: 1rem;
+    }
 }
 
 @media only screen and (min-width:800px) {
