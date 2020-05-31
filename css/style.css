@@ -2,14 +2,24 @@ html {
     font-family: 'Times New Roman', Times, serif;
 }
 
-header {
-    display: block;
-    text-align: center;
+.header {
+    display: flex;
+    flex-direction: column;
     position: sticky;
     /* Siempre en pantalla   */
     top: 0px;
     background-color: white;
     border-radius: 10px;
+}
+
+header {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+}
+
+.icon-bar {
+    background-color: white;
 }
 
 .box {
@@ -23,6 +33,8 @@ p {
 
 h1 {
     font-size: 2rem;
+    justify-content: center;
+    width: 100%;
 }
 
 h2,
@@ -40,34 +52,12 @@ h3 {
     font-size: 1.25rem;
 }
 
-
-/*
-table * {
-    padding: 5px;
-}
-
-
-table {
-    background-color: rgb(233, 231, 204);
-    border: solid rgb(134, 23, 23);
-    border-radius: 10px;
-    width: 100%;
-
-
-
-}
-*/
-
-
-/*    . es class
-      # es id
-*/
-
 .menu {
-    display: flex;
+    display: none;
+    flex-direction: column;
     justify-content: space-around;
     background-color: #202226;
-    border-radius: inherit;
+    border-radius: 10px;
 }
 
 .menu .actual {
@@ -97,7 +87,7 @@ table {
 }
 
 img {
-    width: 100%
+    width: 100%;
     /* ancho del padre*/
 }
 
@@ -122,14 +112,6 @@ form * {
     margin: 1rem;
 }
 
-
-/*.conteiner {
-    display: flex;
-    padding: 5px;
-    justify-content: space-around;
-    flex-direction: row-reverse;
-}*/
-
 .conteiner {
     display: grid;
     grid-template-areas: 'conteiner-left' 'conteiner-right';
@@ -141,12 +123,15 @@ form * {
     grid-area: conteiner-left;
     text-align: justify;
     font-size: 1.2rem;
+    /*se agrega para que grid no me ajuste el height*/
+    grid-auto-rows: max-content;
 }
 
 .conteiner-right {
     display: grid;
     grid-area: conteiner-right;
     font-size: 1rem;
+    grid-auto-rows: max-content;
 }
 
 footer {
@@ -179,7 +164,7 @@ footer p {
 }
 
 form input,
-select {
+form select {
     border: 1px solid black;
     border-radius: 5px;
     background: white;
@@ -204,10 +189,38 @@ select {
     flex-direction: column;
 }
 
+.menu-responsive {
+    display: flex;
+}
+
+.icon-menu {
+    background-color: white;
+    color: black;
+    font-size: 1.2rem;
+    border: 0;
+}
+
+@media only screen and (min-width:500px) {
+    .conteiner {
+        grid-template-areas: 'conteiner-left conteiner-right';
+        grid-template-columns: 7fr 3fr;
+        /*grid-gap esta deprecado por eso usamos gap*/
+        gap: 1rem;
+    }
+}
+
 @media only screen and (min-width:800px) {
     .conteiner {
         grid-template-areas: 'conteiner-left conteiner-right';
         grid-template-columns: 7fr 3fr;
-        grid-gap: 1rem;
+        /*grid-gap esta deprecado por eso usamos gap*/
+        gap: 1rem;
+    }
+    .icon-menu {
+        display: none;
+    }
+    .menu {
+        display: flex;
+        flex-direction: row;
     }
 }

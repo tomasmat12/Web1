@@ -1,6 +1,4 @@
-document.addEventListener("DOMContentLoaded", cargarPagina);
-
-function cargarPagina() {
+document.addEventListener("DOMContentLoaded", function() {
 
     "use strict";
     let tablaInfoEquipoPreCargada = [
@@ -14,77 +12,104 @@ function cargarPagina() {
         { colum1: "13", colum2: "Punta Receptor", colum3: "Ezequiel Palacios", colum4: "1,98 m", colum5: "27 años" },
         { colum1: "16", colum2: "Armador", colum3: "Matias Giraudo", colum4: "1,96 m", colum5: "22 años" },
         { colum1: "17", colum2: "Central", colum3: "Nicolas Zerba", colum4: "2,03 m", colum5: "20 años" },
-        { colum1: "18", colum2: "Central", colum3: "Martin Ramos", colum4: "1,97 m", colum5: "28 años" },
-        { colum1: "19", colum2: "Punta Receptor", colum3: "Luciano Vicentin", colum4: "1,97 m", colum5: "20 años" },
-        { colum1: "21", colum2: "Central", colum3: "Joaquin Gallego", colum4: "2,04 m", colum5: "23 años" },
-        { colum1: "22", colum2: "Opuesto", colum3: "GermanJohansen", colum4: "2,00 m", colum5: "24 años" }
+        { colum1: "18", colum2: "Central", colum3: "Martin Ramos", colum4: "1,97 m", colum5: "28 años" }
     ];
 
+    let tablaAutocompletar = [{ colum1: "19", colum2: "Punta Receptor", colum3: "Luciano Vicentin", colum4: "1,97 m", colum5: "20 años" },
+        { colum1: "21", colum2: "Central", colum3: "Joaquin Gallego", colum4: "2,04 m", colum5: "23 años" },
+        { colum1: "22", colum2: "Opuesto", colum3: "German Johansen", colum4: "2,00 m", colum5: "24 años" }
+    ];
+
+    const filtroDefault = { "option": "Todas", "value": "All" };
+    let arrFiltro = [];
+
+    // ... Spread syntax lo uso para no tener que recorrer el arrgle para copiar los valores en el
+    tablaInfoEquipoPreCargada.push(...tablaAutocompletar);
 
 
-    function CargaTablas() {
 
-        for (let elem of tablaInfoEquipoPreCargada) {
+    function CargaTabla(arrTabla) {
+
+
+        for (let elem of arrTabla) {
             document.querySelector(".tablaInfoEquipo").innerHTML += "<tr>" +
                 "<td>" + elem.colum1 + "</td>" + "<td>" + elem.colum2 + "</td>" + "<td>" + elem.colum3 + "</td>" +
                 "<td>" + elem.colum4 + "</td>" + "<td>" + elem.colum5 + "</td>" + "</tr>";
-
-            let filtro = document.querySelector("#filtro");
-            let agregar = true;
-            for (let i of filtro.childNodes) {
-                if (i.value === elem.colum2)
-                    agregar = false;
-            }
-            if (agregar) {
-                filtro.innerHTML += `<option value="${elem.colum2}"> ${elem.colum2} </option>`
-            }
-
-
         }
 
-        /*        for (let elem of tablaResultadoPreCargada) {
-                    document.querySelector(".tablaResultado").innerHTML += "<tr>" +
-                        "<td>" + elem.colum1 + "</td>" + "<td>" + elem.colum2 + "</td>" + "<td>" + elem.colum3 + "</td>" +
-                        "<td>" + elem.colum4 + "</td>" + "<td>" + elem.colum5 + "</td>" + "<td>" + elem.colum6 + "</td>" + "</tr>"
-              }
-            */
+
+
     }
 
-    CargaTablas();
+
+    function existeEnJsonArray(arr, key, value) {
+        for (let elem of arr) {
+            if (elem[key] === value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function recargarFiltro(arrTabla) {
+        let filtro = document.querySelector("#filtro");
+        filtro.innerHTML = "";
+        filtro.innerHTML += `<option value="${filtroDefault.value}"> ${filtroDefault.option} </option>`;
+        arrFiltro = [];
+        arrFiltro.push(filtroDefault);
+        for (let elem of arrTabla) {
+            if (!existeEnJsonArray(arrFiltro, "option", elem.colum2)) {
+                filtro.innerHTML += `<option value="${elem.colum2}"> ${elem.colum2} </option>`;
+                arrFiltro.push({ "option": elem.colum2, "value": elem.colum2 });
+            }
+        }
+
+    }
+
+    CargaTabla(tablaInfoEquipoPreCargada);
+    recargarFiltro(tablaInfoEquipoPreCargada);
     // document.querySelector(".botonAgregarRow").addEventListener("submit", agregarFila);
-    //document.querySelector(".botonVaciarTabla").addEventListener("click", vaciarTabla);
-    /*document.querySelector(".botonFiltro").addEventListener("click",FiltrarGanador);*/
-    //document.querySelector(".botonCargarTabla").addEventListener("click", CargaTablas);
-    //document.querySelector(".botonEliminarUltimoRegistro").addEventListener("click", eliminarRegistro);
+    document.querySelector("#btn-vaciarTabla").addEventListener("click", () => {
+        tablaInfoEquipoPreCargada = [];
+        vaciarTablaInfoEquipo();
+        recargarFiltro(tablaInfoEquipoPreCargada);
+    });
+    document.querySelector("#btn-cargarTabla").addEventListener("click", () => {
+        tablaInfoEquipoPreCargada.push(...tablaAutocompletar);
+        CargaTabla(tablaAutocompletar);
+        recargarFiltro(tablaAutocompletar);
+    });
+    document.querySelector("#btn-eliminarUltimo").addEventListener("click", eliminarUltimoRegistro);
 
     document.querySelector("#filtro").addEventListener("change", filtrar);
 
     function filtrar() {
         let valor = this.value;
-
         for (let elem of document.querySelector(".tablaInfoEquipo").childNodes) {
             elem.className = "";
-            if (valor != "all") {
+            if (valor != filtroDefault.value) {
                 let tdposicion = elem.childNodes[1];
-                if (tdposicion && tdposicion.innerHTML != valor) {
+                if (tdposicion != undefined && tdposicion.innerHTML != valor) {
                     elem.className = "oculto";
                 }
             }
         }
     }
 
-    function eliminarRegistro() {
-        tablaResultadoPreCargada.pop();
-        vaciarTabla();
-        CargaTablas();
+    function eliminarUltimoRegistro() {
+        tablaInfoEquipoPreCargada.pop();
+        vaciarTablaInfoEquipo();
+        CargaTabla(tablaInfoEquipoPreCargada);
+        recargarFiltro(tablaInfoEquipoPreCargada);
     }
 
-    function vaciarTabla() {
-        document.querySelector(".tablaResultado").innerHTML = "";
+    function vaciarTablaInfoEquipo() {
+        document.querySelector(".tablaInfoEquipo").innerHTML = "";
+
     }
 
 
-    function agregarFila(e) {
+    function agregarJugador(e) {
         e.preventDefault();
         let equipo = document.querySelector("#inputEquipo").value;
         let set1 = document.querySelector("#input1erSet").value;
@@ -122,21 +147,23 @@ function cargarPagina() {
     }
 
     function agregarFilaDada(elem) {
-
         document.querySelector(".tablaResultado").innerHTML += "<tr>" +
             "<td>" + elem.colum1 + "</td>" + "<td>" + elem.colum2 + "</td>" + "<td>" + elem.colum3 + "</td>" +
             "<td>" + elem.colum4 + "</td>" + "<td>" + elem.colum5 + "</td>" + "<td>" + elem.colum6 + "</td>" + "</tr>"
     }
 
-}
 
 
-/*<input type="text" placeholder="1er Set" id="input1erSet"> </input>
-           <input type="text" placeholder="2do Set" id="input2doSet"> </input>
-           <input type="text" placeholder="3er Set" id="input3erSet"> </input>
-           <input type="text" placeholder="4to Set" id="input4toSet"> </input>
-           <input type="text" placeholder="tie break" id="inputTieBreak"> </input>
-           <button class="botonAgregarRow" value="">Agregar Datos</button>
-           <button class="botonVaciarTabla" value="">Vaciar Tabla</button>
-           <button class="botonFiltro" value="">Filtrar Ganador</button>
-*/
+
+    /*<input type="text" placeholder="1er Set" id="input1erSet"> </input>
+               <input type="text" placeholder="2do Set" id="input2doSet"> </input>
+               <input type="text" placeholder="3er Set" id="input3erSet"> </input>
+               <input type="text" placeholder="4to Set" id="input4toSet"> </input>
+               <input type="text" placeholder="tie break" id="inputTieBreak"> </input>
+               <button class="botonAgregarRow" value="">Agregar Datos</button>
+               <button class="botonVaciarTabla" value="">Vaciar Tabla</button>
+               <button class="botonFiltro" value="">Filtrar Ganador</button>
+    */
+
+
+});
