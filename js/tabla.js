@@ -80,6 +80,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("#filtro").addEventListener("change", filtrar);
 
+    document.querySelector("#btn-agregarRow").addEventListener("click",agregarJugador);
+
     function filtrar() {
         let valor = this.value;
         for (let elem of document.querySelector(".tablaInfoEquipo").childNodes) {
@@ -108,41 +110,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function agregarJugador(e) {
         e.preventDefault();
-        let equipo = document.querySelector("#inputEquipo").value;
-        let set1 = document.querySelector("#input1erSet").value;
-        let set2 = document.querySelector("#input2doSet").value;
-        let set3 = document.querySelector("#input3erSet").value;
-        let set4 = document.querySelector("#input4toSet").value;
-        let tieBreak = document.querySelector("#inputTieBreak").value;
-
-        if ((tablaResultadoPreCargada.length % 3) != 2) {
-
-
-
-            let fila = { colum1: equipo, colum2: set1, colum3: set2, colum4: set3, colum5: set4, colum6: tieBreak };
-            tablaResultadoPreCargada.push(fila);
-            agregarFilaDada(fila);
-            setCamposImput();
-        } else {
-            let filaP = { colum1: "-------", colum2: "-------", colum3: "Siguiente", colum4: "Partido", colum5: "-------", colum6: "-------" };
-            let fila = { colum1: equipo, colum2: set1, colum3: set2, colum4: set3, colum5: set4, colum6: tieBreak };
-            tablaResultadoPreCargada.push(filaP);
-            tablaResultadoPreCargada.push(fila);
-            agregarFilaDada(filaP);
-            agregarFilaDada(fila);
-        }
+        let nro = document.querySelector("#inputNro").value;
+        let pos = document.querySelector("#inputPos").value;
+        let nombre = document.querySelector("#inputNombre").value;
+        let altura = document.querySelector("#inputAltura").value;
+        let edad = document.querySelector("#inputEdad").value;
+        
+        let fila = { colum1: nro, colum2: pos, colum3: nombre, colum4: altura, colum5: edad };
+        tablaInfoEquipoPreCargada.push(fila);
+        vaciarTablaInfoEquipo();
+        CargaTabla(tablaInfoEquipoPreCargada);
+        recargarFiltro(tablaInfoEquipoPreCargada);
+        setCamposImput();
+     
     }
 
     function setCamposImput() {
-        document.querySelector("#inputEquipo").value = "";
-        document.querySelector("#input1erSet").value = "";
-        document.querySelector("#input2doSet").value = "";
-        document.querySelector("#input3erSet").value = "";
-        document.querySelector("#input4toSet").value = "";
-        document.querySelector("#inputTieBreak").value = "";
-
+        document.querySelector("#inputNro").value = "";
+        document.querySelector("#inputPos").value = "";
+        document.querySelector("#inputNombre").value = "";
+        document.querySelector("#inputAltura").value = "";
+        document.querySelector("#inputEdad").value = "";
+       
     }
-
+/*
     function agregarFilaDada(elem) {
         document.querySelector(".tablaResultado").innerHTML += "<tr>" +
             "<td>" + elem.colum1 + "</td>" + "<td>" + elem.colum2 + "</td>" + "<td>" + elem.colum3 + "</td>" +
@@ -150,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-
+*/
 
     /*<input type="text" placeholder="1er Set" id="input1erSet"> </input>
                <input type="text" placeholder="2do Set" id="input2doSet"> </input>
