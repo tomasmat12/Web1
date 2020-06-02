@@ -23,22 +23,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const filtroDefault = { "option": "Todas", "value": "All" };
     let arrFiltro = [];
 
-    // ... Spread syntax lo uso para no tener que recorrer el arrgle para copiar los valores en el
+    // ... Spread lo uso para no tener que recorrer el arrgle para copiar los valores en el
     tablaInfoEquipoPreCargada.push(...tablaAutocompletar);
 
 
 
+
+
     function CargaTabla(arrTabla) {
-
-
         for (let elem of arrTabla) {
             document.querySelector(".tablaInfoEquipo").innerHTML += "<tr>" +
                 "<td>" + elem.colum1 + "</td>" + "<td>" + elem.colum2 + "</td>" + "<td>" + elem.colum3 + "</td>" +
                 "<td>" + elem.colum4 + "</td>" + "<td>" + elem.colum5 + "</td>" + "</tr>";
         }
-
-
-
     }
 
 

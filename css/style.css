@@ -200,7 +200,7 @@ form select {
     border: 0;
 }
 
-@media only screen and (min-width:500px) {
+@media only screen and (min-width:600px) {
     .conteiner {
         grid-template-areas: 'conteiner-left conteiner-right';
         grid-template-columns: 7fr 3fr;
@@ -214,6 +214,36 @@ form select {
         grid-template-areas: 'conteiner-left conteiner-right';
         grid-template-columns: 7fr 3fr;
         /*grid-gap esta deprecado por eso usamos gap*/
+        gap: 1rem;
+    }
+    .icon-menu {
+        display: none;
+    }
+    .menu {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+@media only screen and (min-width:1024px) {
+    .conteiner {
+        grid-template-areas: 'conteiner-left conteiner-right';
+        grid-template-columns: 7fr 2fr;
+        /*grid-gap esta deprecado por eso usamos gap*/
+        gap: 1rem;
+    }
+    .prueba section {
+        display: grid;
+        grid-area: section;
+    }
+    .prueba aside {
+        display: grid;
+        grid-area: aside;
+    }
+    .prueba {
+        display: grid;
+        grid-template-areas: 'section aside';
+        grid-template-columns: 2fr 1fr;
         gap: 1rem;
     }
     .icon-menu {
