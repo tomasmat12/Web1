@@ -3,29 +3,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let button = document.querySelector("#buttonAceptar");
 
-    button.addEventListener("click", enviar);
+    let form = document.querySelector("#form-contacto");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        document.querySelector("#succes").innerHTML = 'Se ha enviado un correo a ' + email.value;
+    });
 
     button.disabled = true;
-
-    function enviar(e) {
-        e.preventDefault();
-
-        let nombre = document.querySelector("#nombre");
-        let apellido = document.querySelector("#apellido");
-
-        let email = document.querySelector("#email");
-        let date = document.querySelector("#date");
-
-        //como saco la accion por defecto agrego la validacion del los campos
-        if (nombre.checkValidity() && apellido.checkValidity() && email.checkValidity() && date.checkValidity()) {
-            document.querySelector("#succes").innerHTML = 'Se ha enviado un correo a ' + email.value;
-        } else {
-            nombre.reportValidity();
-            apellido.reportValidity();
-            email.reportValidity();
-            date.reportValidity();
-        }
-    }
 
 
 

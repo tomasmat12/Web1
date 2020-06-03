@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let elem of arrTabla) {
             if (!existeEnJsonArray(arrFiltro, "option", elem.colum2)) {
                 filtro.innerHTML += `<option value="${elem.colum2}"> ${elem.colum2} </option>`;
+
                 arrFiltro.push({ "option": elem.colum2, "value": elem.colum2 });
             }
         }
@@ -73,23 +74,29 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     document.querySelector("#btn-cargarTabla").addEventListener("click", () => {
         tablaInfoEquipoPreCargada.push(...tablaAutocompletar);
-        CargaTabla(tablaAutocompletar);
+        vaciarTablaInfoEquipo();
+        CargaTabla(tablaInfoEquipoPreCargada);
         recargarFiltro(tablaAutocompletar);
     });
     document.querySelector("#btn-eliminarUltimo").addEventListener("click", eliminarUltimoRegistro);
 
     document.querySelector("#filtro").addEventListener("change", filtrar);
 
-    document.querySelector("#btn-agregarRow").addEventListener("click",agregarJugador);
+    document.querySelector("#form-jugador").addEventListener("submit", function(event) {
+        event.preventDefault();
+        agregarJugador();
+    });
+
+
 
     function filtrar() {
         let valor = this.value;
         for (let elem of document.querySelector(".tablaInfoEquipo").childNodes) {
-            elem.className = "";
+            elem.className = "resaltado";
             if (valor != filtroDefault.value) {
                 let tdposicion = elem.childNodes[1];
                 if (tdposicion != undefined && tdposicion.innerHTML != valor) {
-                    elem.className = "oculto";
+                    elem.className = "";
                 }
             }
         }
@@ -108,21 +115,20 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    function agregarJugador(e) {
-        e.preventDefault();
+    function agregarJugador() {
         let nro = document.querySelector("#inputNro").value;
         let pos = document.querySelector("#inputPos").value;
         let nombre = document.querySelector("#inputNombre").value;
         let altura = document.querySelector("#inputAltura").value;
         let edad = document.querySelector("#inputEdad").value;
-        
-        let fila = { colum1: nro, colum2: pos, colum3: nombre, colum4: altura, colum5: edad };
+
+        let fila = { colum1: nro, colum2: pos, colum3: nombre, colum4: altura + " m", colum5: edad + " años" };
         tablaInfoEquipoPreCargada.push(fila);
         vaciarTablaInfoEquipo();
         CargaTabla(tablaInfoEquipoPreCargada);
         recargarFiltro(tablaInfoEquipoPreCargada);
         setCamposImput();
-     
+
     }
 
     function setCamposImput() {
@@ -131,27 +137,8 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector("#inputNombre").value = "";
         document.querySelector("#inputAltura").value = "";
         document.querySelector("#inputEdad").value = "";
-       
+
     }
-/*
-    function agregarFilaDada(elem) {
-        document.querySelector(".tablaResultado").innerHTML += "<tr>" +
-            "<td>" + elem.colum1 + "</td>" + "<td>" + elem.colum2 + "</td>" + "<td>" + elem.colum3 + "</td>" +
-            "<td>" + elem.colum4 + "</td>" + "<td>" + elem.colum5 + "</td>" + "<td>" + elem.colum6 + "</td>" + "</tr>"
-    }
-
-
-*/
-
-    /*<input type="text" placeholder="1er Set" id="input1erSet"> </input>
-               <input type="text" placeholder="2do Set" id="input2doSet"> </input>
-               <input type="text" placeholder="3er Set" id="input3erSet"> </input>
-               <input type="text" placeholder="4to Set" id="input4toSet"> </input>
-               <input type="text" placeholder="tie break" id="inputTieBreak"> </input>
-               <button class="botonAgregarRow" value="">Agregar Datos</button>
-               <button class="botonVaciarTabla" value="">Vaciar Tabla</button>
-               <button class="botonFiltro" value="">Filtrar Ganador</button>
-    */
 
 
 });

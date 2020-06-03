@@ -34,13 +34,13 @@
 
 
 
-    <div class="banner-image">
+    <section class="banner-image">
         <img src="image/banner/BannerIndoor.jpg" alt="Banner Indoor">
-    </div>
+    </section>
     <div class="box">
         <div class="conteiner">
             <article class="conteiner-left">
-                <div class="prueba">
+                <div class="conteiner-mid">
                     <section>
                         <h2>Selección masculina de voleibol de Argentina</h2>
                         <p>
@@ -87,16 +87,20 @@
                         </tbody>
                     </table>
                 </div>
-                <input type="text" placeholder="Nro Jugador" id="inputNro"> </input>
-                <input type="text" placeholder="Posicion en la que juega" id="inputPos"> </input>
-                <input type="text" placeholder="Nombre del Jugador" id="inputNombre"> </input>
-                <input type="text" placeholder="Altura del Jugador" id="inputAltura"> </input>
-                <input type="text" placeholder="Edad del Jugador" id="inputEdad"> </input>
-                
-                <button id="btn-agregarRow" value="">Agregar Jugador</button>
-                <button id="btn-eliminarUltimo"> eliminar</button>
-                <button id="btn-cargarTabla"> Cargar</button>
-                <button id="btn-vaciarTabla">Vaciar</button>
+                <div>
+                    <button id="btn-eliminarUltimo">Eliminar</button>
+                    <button id="btn-cargarTabla">Cargar Varios</button>
+                    <button id="btn-vaciarTabla">Vaciar</button>
+                </div>
+                <form action="#" id="form-jugador">
+                    <input type="number" placeholder="Nro Jugador" id="inputNro" required> </input>
+                    <input type="text" placeholder="Posicion en la que juega" id="inputPos" required> </input>
+                    <input type="text" placeholder="Nombre del Jugador" id="inputNombre" required> </input>
+                    <input type="number" placeholder="Altura del Jugador" id="inputAltura" required> </input>
+                    <input type="number" placeholder="Edad del Jugador" id="inputEdad" required> </input>
+                    <input class="buttonAceptar" type="submit" id="btn-agregarRow" value="Agregar Jugador"></input>
+                </form>
+
             </article>
 
             <article class="conteiner-right">

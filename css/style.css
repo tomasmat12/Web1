@@ -2,6 +2,18 @@ html {
     font-family: 'Times New Roman', Times, serif;
 }
 
+input:focus {
+    outline: none;
+}
+
+select:focus {
+    outline: none;
+}
+
+.resaltado {
+    background: yellowgreen;
+}
+
 .header {
     display: flex;
     flex-direction: column;
@@ -65,6 +77,19 @@ h3 {
     color: red;
 }
 
+button {
+    border-radius: 10px;
+    border: 1px solid blue;
+    font-size: 1.2rem;
+    outline: none;
+    background-color: white;
+    color: black;
+}
+
+button:not(:disabled) {
+    outline: none;
+}
+
 
 /*    
     por especeficidad gana .actual sobre a 
@@ -89,6 +114,10 @@ h3 {
 img {
     width: 100%;
     /* ancho del padre*/
+}
+
+video {
+    width: 100%;
 }
 
 form {
@@ -140,7 +169,7 @@ footer {
     color: #202226;
 }
 
-footer p {
+footer * {
     margin: 10px;
 }
 
@@ -210,12 +239,6 @@ form select {
 }
 
 @media only screen and (min-width:800px) {
-    .conteiner {
-        grid-template-areas: 'conteiner-left conteiner-right';
-        grid-template-columns: 7fr 3fr;
-        /*grid-gap esta deprecado por eso usamos gap*/
-        gap: 1rem;
-    }
     .icon-menu {
         display: none;
     }
@@ -226,31 +249,18 @@ form select {
 }
 
 @media only screen and (min-width:1024px) {
-    .conteiner {
-        grid-template-areas: 'conteiner-left conteiner-right';
-        grid-template-columns: 7fr 2fr;
-        /*grid-gap esta deprecado por eso usamos gap*/
-        gap: 1rem;
-    }
-    .prueba section {
+    .conteiner-mid section {
         display: grid;
         grid-area: section;
     }
-    .prueba aside {
+    .conteiner-mid aside {
         display: grid;
         grid-area: aside;
     }
-    .prueba {
+    .conteiner-mid {
         display: grid;
         grid-template-areas: 'section aside';
         grid-template-columns: 2fr 1fr;
         gap: 1rem;
-    }
-    .icon-menu {
-        display: none;
-    }
-    .menu {
-        display: flex;
-        flex-direction: row;
     }
 }
