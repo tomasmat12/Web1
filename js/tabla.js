@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
         tablaInfoEquipoPreCargada.push(...tablaAutocompletar);
         vaciarTablaInfoEquipo();
         CargaTabla(tablaInfoEquipoPreCargada);
-        recargarFiltro(tablaAutocompletar);
+        recargarFiltro(tablaInfoEquipoPreCargada);
     });
     document.querySelector("#btn-eliminarUltimo").addEventListener("click", eliminarUltimoRegistro);
 
