@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const filtroDefault = { "option": "Todas", "value": "All" };
     let arrFiltro = [];
+    //arrFiltro.push(filtroDefault);
 
     // ... Spread lo uso para no tener que recorrer el arrgle para copiar los valores en el
     tablaInfoEquipoPreCargada.push(...tablaAutocompletar);
@@ -30,12 +31,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-    function CargaTabla(arrTabla) {
-        for (let elem of arrTabla) {
+    function agregarEnTabla(...arrTabla) {
+
+
+        arrTabla.forEach(elem => {
             document.querySelector(".tablaInfoEquipo").innerHTML += "<tr>" +
                 "<td>" + elem.colum1 + "</td>" + "<td>" + elem.colum2 + "</td>" + "<td>" + elem.colum3 + "</td>" +
                 "<td>" + elem.colum4 + "</td>" + "<td>" + elem.colum5 + "</td>" + "</tr>";
-        }
+        });
     }
 
 
@@ -48,36 +51,52 @@ document.addEventListener("DOMContentLoaded", function() {
         return false;
     }
 
-    function recargarFiltro(arrTabla) {
+    function agregarEnfiltro(...elem) {
         let filtro = document.querySelector("#filtro");
-        filtro.innerHTML = "";
-        filtro.innerHTML += `<option value="${filtroDefault.value}"> ${filtroDefault.option} </option>`;
-        arrFiltro = [];
-        arrFiltro.push(filtroDefault);
-        for (let elem of arrTabla) {
-            if (!existeEnJsonArray(arrFiltro, "option", elem.colum2)) {
-                filtro.innerHTML += `<option value="${elem.colum2}"> ${elem.colum2} </option>`;
-
-                arrFiltro.push({ "option": elem.colum2, "value": elem.colum2 });
+        let arg = [...elem];
+        arg.forEach(element => {
+            if (!existeEnJsonArray(arrFiltro, "option", element.colum2)) {
+                filtro.innerHTML += `<option value="${element.colum2}"> ${element.colum2} </option>`;
+                arrFiltro.push({ "option": element.colum2, "value": element.colum2 });
             }
-        }
+        });
 
     }
 
-    CargaTabla(tablaInfoEquipoPreCargada);
-    recargarFiltro(tablaInfoEquipoPreCargada);
-    // document.querySelector(".botonAgregarRow").addEventListener("submit", agregarFila);
+    function agregarOptionDefaultFiltro() {
+        arrFiltro.push(filtroDefault);
+        let option = document.createElement("option");
+        option.value = filtroDefault.value;
+        option.innerHTML = filtroDefault.option;
+        document.querySelector("#filtro").appendChild(option);
+    }
+
+
+    function vaciarfiltro() {
+        arrFiltro = [];
+        document.querySelector("#filtro").innerHTML = "";
+        agregarOptionDefaultFiltro();
+    }
+
+    agregarEnfiltro();
+    agregarEnTabla(...tablaInfoEquipoPreCargada);
+    agregarOptionDefaultFiltro();
+    agregarEnfiltro(...tablaInfoEquipoPreCargada);
     document.querySelector("#btn-vaciarTabla").addEventListener("click", () => {
-        tablaInfoEquipoPreCargada = [];
+
+
         vaciarTablaInfoEquipo();
-        recargarFiltro(tablaInfoEquipoPreCargada);
+        vaciarfiltro();
+        //recargarFiltro(...tablaInfoEquipoPreCargada);
     });
+
     document.querySelector("#btn-cargarTabla").addEventListener("click", () => {
         tablaInfoEquipoPreCargada.push(...tablaAutocompletar);
-        vaciarTablaInfoEquipo();
-        CargaTabla(tablaInfoEquipoPreCargada);
-        recargarFiltro(tablaInfoEquipoPreCargada);
+        agregarEnTabla(...tablaAutocompletar);
+        agregarEnfiltro(...tablaAutocompletar);
     });
+
+
     document.querySelector("#btn-eliminarUltimo").addEventListener("click", eliminarUltimoRegistro);
 
     document.querySelector("#filtro").addEventListener("change", filtrar);
@@ -92,24 +111,53 @@ document.addEventListener("DOMContentLoaded", function() {
     function filtrar() {
         let valor = this.value;
         for (let elem of document.querySelector(".tablaInfoEquipo").childNodes) {
-            elem.className = "resaltado";
+            elem.className = "";
             if (valor != filtroDefault.value) {
                 let tdposicion = elem.childNodes[1];
                 if (tdposicion != undefined && tdposicion.innerHTML != valor) {
-                    elem.className = "";
+                    elem.className = "oculto";
                 }
             }
         }
     }
 
+    function eliminarultimoTabla() {
+        let tabla = document.querySelector(".tablaInfoEquipo");
+        let posultimo = tabla.childNodes.length - 1;
+        tabla.removeChild(tabla.childNodes[posultimo]);
+    }
+
+    function eliminarEnFiltro(valor) {
+        //lo saco del arreglo
+        let elementoAEliminar = arrFiltro.forEach(element => {
+            if (element.value === valor) {
+                return element;
+
+            }
+
+        });
+        arrFiltro.splice(arrFiltro.indexOf(elementoAEliminar), 1);
+
+        //lo saco del dom 
+        let filtro = document.querySelector("#filtro");
+        for (let elem of filtro.childNodes) {
+            if (elem.value === elementoAEliminar.value) {
+                filtro.removeChild(elem);
+            }
+        }
+    }
+
     function eliminarUltimoRegistro() {
+        let ulltimoRegistro = tablaInfoEquipoPreCargada[tablaInfoEquipoPreCargada.length - 1];
         tablaInfoEquipoPreCargada.pop();
-        vaciarTablaInfoEquipo();
-        CargaTabla(tablaInfoEquipoPreCargada);
-        recargarFiltro(tablaInfoEquipoPreCargada);
+        eliminarultimoTabla();
+        if (!existeEnJsonArray(tablaInfoEquipoPreCargada, "colum2", ulltimoRegistro.colum2)) {
+            eliminarEnFiltro(ulltimoRegistro.colum2);
+        }
     }
 
     function vaciarTablaInfoEquipo() {
+        tablaInfoEquipoPreCargada = [];
         document.querySelector(".tablaInfoEquipo").innerHTML = "";
 
     }
@@ -124,9 +172,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let fila = { colum1: nro, colum2: pos, colum3: nombre, colum4: altura + " m", colum5: edad + " años" };
         tablaInfoEquipoPreCargada.push(fila);
-        vaciarTablaInfoEquipo();
-        CargaTabla(tablaInfoEquipoPreCargada);
-        recargarFiltro(tablaInfoEquipoPreCargada);
+        agregarEnTabla(fila);
+        agregarEnfiltro(fila);
         setCamposImput();
 
     }
