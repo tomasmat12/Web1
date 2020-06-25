@@ -106,6 +106,10 @@ button:not(:disabled) {
     color: blue;
 }
 
+.menu a:visited {
+    color: blue;
+}
+
 .banner-image {
     display: block;
     margin: 10px 0px;
