@@ -34,7 +34,7 @@
                 </div>
 
                 <h3>Equipo Actual</h3>
-                <p>Filtrar posiciones</p>
+                <label for="filtro">Filtrar posiciones</label>
                 <select name="filtro" id="filtro" placeholder="Seleccione">
                 </select>
                 <div class="table-responsive">
@@ -46,6 +46,8 @@
                                 <th>Nombre</th>
                                 <th>Altura</th>
                                 <th>Edad</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody class="tablaInfoEquipo">
@@ -53,11 +55,12 @@
                     </table>
                 </div>
                 <div>
-                    <button id="btn-eliminarUltimo">Eliminar</button>
                     <button id="btn-cargarTabla">Cargar Varios</button>
                     <button id="btn-vaciarTabla">Vaciar</button>
+                    <button id="btn-agregarJugador">Agregar</button>
                 </div>
-                <form action="#" id="form-jugador">
+                <form action="#" id="form-jugador" class="oculto">
+                    <input id="input-id" type="hidden">
                     <input type="number" placeholder="Nro Jugador" id="inputNro" required> </input>
                     <input type="text" placeholder="Posicion en la que juega" id="inputPos" required> </input>
                     <input type="text" placeholder="Nombre del Jugador" id="inputNombre" required> </input>

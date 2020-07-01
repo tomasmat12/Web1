@@ -1,4 +1,4 @@
-import {default as tabla} from './tabla.js';
+import {tabla, actualizar} from './tabla.js';
 
 import {default as home} from './form.js';
 
@@ -17,7 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    let interval='';
+
     function cargarPagina(url) {
+
+        clearInterval(interval);
 
         fetch(url).then(response => {
             response.text().then(texto => {
@@ -28,7 +32,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (url === "indoor.html"){
                     //window.history.pushState("" , "Indoor" , url);
-                    tabla().call();
+                    tabla();
+                    interval = setInterval(() => {
+                        actualizar();
+                    }, 15000);
                 }
 
                 if (url === "home.html"){

@@ -77,6 +77,14 @@ h3 {
     color: red;
 }
 
+.menu button {
+
+    border: none;
+    background: inherit;
+    color: white;
+
+}
+
 button {
     border-radius: 10px;
     border: 1px solid blue;
@@ -88,6 +96,21 @@ button {
 
 button:not(:disabled) {
     outline: none;
+}
+
+td button {
+
+    border: none;
+}
+
+.delet {
+    cursor: pointer;
+    color: red;
+}
+
+.edit {
+    cursor: pointer;
+    color: green;
 }
 
 
@@ -206,7 +229,6 @@ form select {
 
 .buttonAceptar {
     border-radius: 10px;
-    border: 1px solid blue;
     font-size: 1.2rem;
     background-color: green;
     color: white;
