@@ -56,7 +56,7 @@ function eliminarDeTabla(event) {
     deleteData(tr.id.split("id")[1], r => {
 
         for (let index = 0; index < infotabla.length; index++) {
-            let elem = infotabla[index];
+            let elem =Object.assign({},infotabla[index]);
             if (elem._id === tr.id.split("id")[1]) {
                 infotabla.splice(infotabla.indexOf(elem), 1);
                 if (infotabla.filter(x => x.thing.posicion == elem.thing.posicion).length == 0) {
@@ -64,6 +64,7 @@ function eliminarDeTabla(event) {
                 }
                 index = infotabla.length;
             }
+            filtrar();
 
         }
 
@@ -192,13 +193,12 @@ function modificarJugador() {
 
     putData(id, fila, r => {
         for (let index = 0; index < infotabla.length; index++) {
-            let elem = infotabla[index];
+            let elem = Object.assign({},infotabla[index]); //uso este metodo por que si no elem es una referencia y no una copia de infotabla
             if (elem._id === r.person._id) {
                 infotabla[index].thing = fila.thing;
-                if (infotabla.filter(x => x.thing.posicion == elem.thing.posicion).length == 0) {
+                if (infotabla.filter(x => x.thing.posicion === elem.thing.posicion).length == 0) {
                     eliminarEnFiltro(elem.thing.posicion);
                 }
-
                 modificarFilaTabla(infotabla[index]);
                 agregarEnfiltro(infotabla[index]);
                 filtrar();
@@ -206,9 +206,7 @@ function modificarJugador() {
                 index = infotabla.length;
             }
 
-        }
-
-    
+        }   
 
     })
 
@@ -253,6 +251,13 @@ function actualizarTabla(respuesta) {
 
 }
 
+//
+function mostrarError(e){
+    alert("Compruebe su coneccion a internet");
+    console.log(e);
+
+}
+
 // llamadas a la api
 function getTabla(callback) {
 
@@ -266,8 +271,9 @@ function getTabla(callback) {
     }).then(r => {
         /* console.log(r) ; */
         callback(r[colecction]);
-    }).catch(
-
+    }).catch(e => {
+            mostrarError(e);
+         }        
     );
 
 }
@@ -286,7 +292,9 @@ function postData(data, callback) {
 
     }).then(response => { return response.json() }).then(r => {
         callback(r)
-    }).catch();
+    }).catch(e => {
+        mostrarError(e);
+     });
 
 }
 
@@ -299,7 +307,9 @@ function deleteData(id, callback) {
         'mode': 'cors'
     }).then(response => { return response.json() }).then(r => {
         callback(r)
-    }).catch();
+    }).catch(e => {
+        mostrarError(e);
+     });
 
 }
 
@@ -316,7 +326,9 @@ function putData(id, data, callback) {
         body: JSON.stringify(data)
     }).then(response => { return response.json() }).then(r => {
         callback(r)
-    }).catch();
+    }).catch(e => {
+        mostrarError(e);
+     });
 
 
 

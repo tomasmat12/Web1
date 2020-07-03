@@ -98,11 +98,6 @@ button:not(:disabled) {
     outline: none;
 }
 
-td button {
-
-    border: none;
-}
-
 .delet {
     cursor: pointer;
     color: red;

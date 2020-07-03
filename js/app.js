@@ -1,4 +1,4 @@
-import {tabla, actualizar} from './tabla.js';
+import {tabla ,actualizar } from './tabla.js';
 
 import {default as home} from './form.js';
 
@@ -48,20 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     //window.history.pushState("" , "Beach VolleyBall" , url);
                     
                 }
-
-                /*let scripts = document.querySelectorAll('.body script');
-                for (let i = 0; i < scripts.length; i++) {
-                    let parent = scripts[i].parentElement; 
-                    let d = document.createElement('script');
-                    d.src = scripts[i].src;
-                    parent.appendChild(d); 
-                    parent.removeChild(scripts[i]);                   
-                }*/
-
-
-
-
-
 
             });
         });
